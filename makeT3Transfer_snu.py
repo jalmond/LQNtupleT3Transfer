@@ -36,11 +36,12 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 	
 	fr = open(sample + '/remove_already_copiedfiles.txt' ,'r')
 	for line in fr:
-		print 'file ' + line.strip() + ' already copied, removing from list to be copied'  
-		# remove filename from copy.txt
-		os.system("sed -i '/" + line.strip()+"/d' " + sample + "/copy.txt")
+		if not "Agent pid " in line:
+			print 'file ' + line.strip() + ' already copied, removing from list to be copied'  
+		        # remove filename from copy.txt
+			os.system("sed -i '/" + line.strip()+"/d' " + sample + "/copy.txt")
 		
-		print "removed all files previously copied"
+			print "removed all files previously copied"
 		
 	f = open(sample + '/copy.txt' ,'r')
 	for line in f:
