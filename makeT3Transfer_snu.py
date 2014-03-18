@@ -6,10 +6,8 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 	path= "/cms/store/user/" +  username +"/Tag18/"
 	dir=sample + "/"
 	toremove = path+dir
-	print 'length to remove = ' + str(len(toremove))
     
         ###### DO COPY
-	os.system("rm *.txt")
 
 	if not (os.path.exists(endpath)):
 		os.system("mkdir " + endpath)
@@ -57,7 +55,8 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 		# remove filename from copy.txt
 		os.system("sed -i '/" + filename+"/d' " + sample + "/copy.txt")
 		
-	print "Finished copying to " + snumachine + ".snu.ac.kr:/" + endpath + ". List of files copied are: "   
+	print "Finished copying to " + snumachine + ".snu.ac.kr:/" + endpath + "."
+	print "List of files copied are: "   
 	os.system("ssh jalmond@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./'")
 	os.system("ssh jalmond@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./' > " + sample + "/files_at_snuend.txt")
 
