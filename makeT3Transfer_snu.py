@@ -9,7 +9,6 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 	print 'length to remove = ' + str(len(toremove))
     
         ###### DO COPY
-	os.system("rm *.txt")
 
 	if not (os.path.exists(endpath)):
 		os.system("mkdir " + endpath)
