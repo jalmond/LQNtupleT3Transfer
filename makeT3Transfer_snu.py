@@ -58,10 +58,13 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 		
 	print "Finished copying to " + snumachine + ".snu.ac.kr:/" + endpath + "."
 	print "List of files copied are: "   
-	os.system("ssh jalmond@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./'")
 	os.system("ssh jalmond@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./' > " + sample + "/files_at_snuend.txt")
-
 	
+	fatsnu = open(sample + '/files_at_snuend.txt')
+	for line in fatsnu:
+		if not "Agent pid " in line:		
+			print line
+			
 	os.system("grep -Fxv -f  " + sample + "/files_at_snuend.txt " + sample + "/fullsamplelist.txt > " + sample + "/missingfiles.txt")
 	os.system("sed -i '/^$/d' " + sample + "/missingfiles.txt")
 	
