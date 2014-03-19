@@ -6,7 +6,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 	path= "/cms/store/user/" +  username +"/Tag18/"
 	dir=sample + "/"
 	toremove = path+dir
-    
+
         ###### DO COPY
 
 	if not (os.path.exists(endpath)):
@@ -58,10 +58,13 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 		
 	print "Finished copying to " + snumachine + ".snu.ac.kr:/" + endpath + "."
 	print "List of files copied are: "   
-	os.system("ssh jalmond@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./'")
 	os.system("ssh jalmond@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./' > " + sample + "/files_at_snuend.txt")
-
 	
+	fatsnu = open(sample + '/files_at_snuend.txt')
+	for line in fatsnu:
+		if not "Agent pid " in line:		
+			print line
+			
 	os.system("grep -Fxv -f  " + sample + "/files_at_snuend.txt " + sample + "/fullsamplelist.txt > " + sample + "/missingfiles.txt")
 	os.system("sed -i '/^$/d' " + sample + "/missingfiles.txt")
 	
@@ -82,7 +85,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 
 	os.system("grep -Fxv -f  " + sample + "/files_at_snuend_v2.txt " + sample + "/fullsamplelist.txt")
 
-	os.system("rm " + sample + "/*.txt")	
+#	os.system("rm " + sample + "/*.txt")	
 
 def rename(snumachine, sample, endpath):
 	import os
