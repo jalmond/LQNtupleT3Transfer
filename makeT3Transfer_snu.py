@@ -6,7 +6,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 	path= "/cms/store/user/" +  username +"/Tag18/"
 	dir=sample + "/"
 	toremove = path+dir
-    
+
         ###### DO COPY
 
 	if not (os.path.exists(endpath)):
@@ -85,7 +85,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 
 	os.system("grep -Fxv -f  " + sample + "/files_at_snuend_v2.txt " + sample + "/fullsamplelist.txt")
 
-	os.system("rm " + sample + "/*.txt")	
+#	os.system("rm " + sample + "/*.txt")	
 
 def rename(snumachine, sample, endpath):
 	import os

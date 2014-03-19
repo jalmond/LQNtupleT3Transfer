@@ -1,6 +1,9 @@
 from makeT3Transfer_snu import *
 import os
 
+os.system("voms-proxy-init  cms")
+
+
 user = "jalmond"
 samples  = ["HNEE100"]
 
