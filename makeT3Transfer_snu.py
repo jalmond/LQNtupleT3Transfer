@@ -6,7 +6,12 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 	path= "/cms/store/user/" +  username +"/Tag18/"
 	dir=sample + "/"
 	toremove = path+dir
-
+	print "##################################################"
+	print "###"
+	print "### STARTING NEW TRANSFER OF SAMPLE" + sample
+	print "###"
+	print "##################################################"
+	
         ###### DO COPY
 	print "Setting up transfer"
 	if not (os.path.exists(endpath)):
