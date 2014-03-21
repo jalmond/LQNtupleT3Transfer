@@ -9,7 +9,7 @@ path = "/data1/DATA/LQNtuples_5_3_14/Data/"
 
 #####  USER MUST CHANGE
 user = "jalmond"
-samples  = ["DiMuA"] 
+samples  = ["DiMuA" ,"DiMuB", "DiMuC", "DiMuD", "DiElA", "MuEGGA", "MuA"] 
 
 for s in samples:
     sample = version + s 
