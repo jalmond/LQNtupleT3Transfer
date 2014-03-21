@@ -46,7 +46,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 		        # remove filename from copy.txt
 			os.system("sed -i '/" + line.strip()+"/d' " + sample + "/copy.txt")
 		
-			print "removed all files previously copied"
+       	print "removed all files previously copied"
 		
 	f = open(sample + '/copy.txt' ,'r')
 	for line in f:
