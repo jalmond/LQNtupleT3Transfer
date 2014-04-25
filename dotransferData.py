@@ -13,6 +13,6 @@ samples  = ["DoubleElectron", "DoubleMu","DoubleMuParked"]
 for s in samples:
     
     endpath = path + s
-    makeTransferFile_snu("cms2",s, endpath, user )    
+    makeTransferFile_snu("cms2",s, endpath, user ,"LQNtupleSNU_data")    
     os.system("rm -r "+ s)
     

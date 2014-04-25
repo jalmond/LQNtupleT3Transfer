@@ -15,7 +15,7 @@ samples  = ["DYToEE_M-20_CT10_TuneZ2star_8TeV-powheg-pythia6" , "DYToMuMu_M-20_C
 for s in samples:
 
     endpath = path + s
-    makeTransferFile_snu("cms2",s, endpath, user)
+    makeTransferFile_snu("cms2",s, endpath, user, "LQNtupleSNU")
     #os.system("rm -r "+ s)
     
 

@@ -19,6 +19,6 @@ for s in sigsamples:
     for c in channel:
         sigs = "MajoranaNeutrinoTo"+ c + "_M-"+ s + "_TuneZ2star_8TeV-alpgen"
         endpath = path + sigs
-        makeTransferFile_snu("cms2",sigs, endpath, user )
+        makeTransferFile_snu("cms2",sigs, endpath, user, "LQNtupleSNU" )
         os.system("rm -r "+ sigs)
         
