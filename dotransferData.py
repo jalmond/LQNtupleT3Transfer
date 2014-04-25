@@ -8,13 +8,11 @@ path = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/"
 
 #####  USER MUST CHANGE
 user = "jalmond"
-#samples  = ["DiMuA" ,"DiMuB", "DiMuC", "DiMuD", "DiElA", "MuEGA", "MuA"]
-samples  = ["DiElAV3", "DiElBV3", "DiElCV3", "DiElDV3"]
-#samples  = ["DiElAV2"]
+samples  = ["DoubleElectron", "DoubleMu","DoubleMuParked"]
 
 for s in samples:
-    sample = version + s 
+    
     endpath = path + s
-    makeTransferFile_snu("cms2",sample, endpath, user )    
-    os.system("rm -r "+ sample)
+    makeTransferFile_snu("cms2",s, endpath, user )    
+    os.system("rm -r "+ s)
     

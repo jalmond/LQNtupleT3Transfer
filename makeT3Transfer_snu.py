@@ -1,4 +1,4 @@
-def makeTransferFile_snu(snumachine, sample, endpath, username):
+def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	import os
 	ranpath=""
 
@@ -7,8 +7,8 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 	if not (os.path.exists(sample)):
 		os.system("mkdir " + sample)
 		
-	os.system("xrd " + machine + " ls /cms/store/user/" +  username +"/" + sample + "/LQNtupleSNU/" + " > " + sample + "/getranpath.txt")
-	print "xrd " + machine + " ls /cms/store/user/" +  username +"/" + sample + "/LQNtupleSNU/" + " > " + sample + "/getranpath.txt"
+	os.system("xrd " + machine + " ls /cms/store/user/" +  username +"/" + sample + "/" + pub_name +"/" + " > " + sample + "/getranpath.txt")
+	print "xrd " + machine + " ls /cms/store/user/" +  username +"/" + sample + "/" + pub_name +"/" + " > " + sample + "/getranpath.txt"
 	
 	os.system("sed -i '/^$/d' " + sample +  "/getranpath.txt")
 	os.system("sed -r 's/^.{43}//' " + sample + "/getranpath.txt  > " + sample + "/getranpath_skim.txt")	
@@ -24,7 +24,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username):
 			iline= iline+1
 
 
-	path= "/cms/store/user/" +  username +"/" + sample + "/LQNtupleSNU/" + str(ranpath) + "/"
+	path= "/cms/store/user/" +  username +"/" + sample + "/" + pub_name +"/" + str(ranpath) + "/"
 	dir=sample + "/"
 	toremove = path
 	print ""
