@@ -4,12 +4,13 @@ import os
 os.system("voms-proxy-init  cms")
 
 ######  DO NOT CHANGE
-version = "LQ_Mar14"
-path = "/data1/DATA/LQNtuples_5_3_14/Data/"
+path = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/"
 
 #####  USER MUST CHANGE
 user = "jalmond"
-samples  = ["DiMuA" ,"DiMuB", "DiMuC", "DiMuD", "DiElA", "MuEGGA", "MuA"] 
+#samples  = ["DiMuA" ,"DiMuB", "DiMuC", "DiMuD", "DiElA", "MuEGA", "MuA"]
+samples  = ["DiElAV3", "DiElBV3", "DiElCV3", "DiElDV3"]
+#samples  = ["DiElAV2"]
 
 for s in samples:
     sample = version + s 
