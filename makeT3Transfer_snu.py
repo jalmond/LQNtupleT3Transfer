@@ -20,6 +20,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	fileC=data_stream+"periodC.txt"
 	fileD=data_stream+"periodD.txt"
 	endpath1=""
+	endpath2=""
 
 	if not (os.path.exists(fileA)):
 		 print "File " + fileA + " does not exist. Please copy to current directory"
@@ -189,24 +190,24 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 			found_file=0
 			for lineA in frA:
 				if lineA in line:
-					endpath1 = endpath1 + "periodA/"
+					endpath2 = endpath1 + "/periodA/"
 					found_file=1
        			for lineB in frB:  
 				if lineB in line:
-					endpath1 = endpath1 + "periodB/"
+					endpath2 = endpath1 + "/periodB/"
 					found_file=1		      	
 			for lineC in frC:   		
 				if lineC in line:
-					endpath1 = endpath1 + "periodC/"
+					endpath2 = endpath1 + "/periodC/"
 					found_file=1
 			for lineD in frD: 
 				if lineD in line:
-					endpath1 = endpath1 + "periodD/"
+					endpath2 = endpath1 + "/periodD/"
 					found_file=1
 
 			if found_file==1:
-				print "mv " + line + " " + endpath1
-				os.system("mv " + line + " " + endpath1)
+				print "mv " + line + " " + endpath2
+				os.system("mv " + line + " " + endpath2)
 		       	if found_file==0:
 				print "File NOT found"
 				print "Will remove: " + line 
