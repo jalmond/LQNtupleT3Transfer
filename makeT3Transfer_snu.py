@@ -20,7 +20,10 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	fileC=data_stream+"periodC.txt"
 	fileD=data_stream+"periodD.txt"
 	endpath1=""
-	
+
+	 if not (os.path.exists(fileA)):
+		 print "File " + fileA + " does not exist. Please copy to current directory"
+
 	if "DoubleElectron" in endpath:
 		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/DoubleElectron/"
 	elif "DoubleMuon" in endpath:
