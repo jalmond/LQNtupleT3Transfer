@@ -80,14 +80,14 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	if not (os.path.exists(endpath)):
 		os.exit();
 	if data == 1:
-		if not (os.path.exists(endpath+ "periodA")):
-			os.system("mkdir " + endpath + "periodA")
-		if not (os.path.exists(endpath+ "periodB")):
-			os.system("mkdir " + endpath + "periodB")
-		if not (os.path.exists(endpath+ "periodC")):
-			os.system("mkdir " + endpath + "periodC")
-		if not (os.path.exists(endpath+ "periodD")):
-                       os.system("mkdir " + endpath + "periodD")	
+		if not (os.path.exists(endpath+ "/periodA")):
+			os.system("mkdir " + endpath + "/periodA")
+		if not (os.path.exists(endpath+ "/periodB")):
+			os.system("mkdir " + endpath + "/periodB")
+		if not (os.path.exists(endpath+ "/periodC")):
+			os.system("mkdir " + endpath + "/periodC")
+		if not (os.path.exists(endpath+ "/periodD")):
+                       os.system("mkdir " + endpath + "/periodD")	
 
 	if not (os.path.exists(sample)):
 		os.system("mkdir " + sample)
