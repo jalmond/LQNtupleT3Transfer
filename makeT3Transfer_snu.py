@@ -21,7 +21,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	fileD=data_stream+"periodD.txt"
 	endpath1=""
 
-	 if not (os.path.exists(fileA)):
+	if not (os.path.exists(fileA)):
 		 print "File " + fileA + " does not exist. Please copy to current directory"
 
 	if "DoubleElectron" in endpath:
@@ -205,7 +205,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 					found_file=1
 
 			if found_file==1:
-				print "mv " + line + " " + endpath1)
+				print "mv " + line + " " + endpath1
 				os.system("mv " + line + " " + endpath1)
 			 if found_file==0:
 				 print "File NOT found"
