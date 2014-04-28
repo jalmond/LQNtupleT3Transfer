@@ -1,6 +1,16 @@
 def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	import os
 	ranpath=""
+	data=0
+	file1="DoubleElectronperiodA.txt"
+	file2="DoubleElectronperiodB.txt"
+	file3="DoubleElectronperiodC.txt"
+	file4="DoubleElectronperiodD.txt"
+	
+	if "data" in pub_name:
+		data=1
+		
+		
 
         #### not to change
 	machine="uosaf0007.sscc.uos.ac.kr"
@@ -132,23 +142,29 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 		
 		count = number_of_files
 		dupl =0
-		for i in range(1, count):
-			fullname = tocheck + str(i) + "_"
-			nrepeat=0
-			fr = open(sample + '/duplcheck.txt','r')
-			for line in fr:
-				if fullname in line:
-					nrepeat+=1
-					print "Job " + str(i)  + ": --> " +  line
-					if nrepeat != 1:
-						print "FOUND TWICE: removing " + line
-						os.system("rm " + line)
-						dupl+=1
+		fr = open(sample + '/duplcheck.txt','r')
+		for line in fr:
+			print "Job " + str(i)  + ": --> " +  line
+			fr1 = open(file1,'r')
+			fr2 = open(file2,'r')
+			fr3 = open(file3,'r')
+			fr4 = open(file4,'r')
+			found_file=0
+			for line1 in fr1:
+				if line in line1:
+					found_file=1
+       			for line2 in fr2:  
+				if line in line2:
+					found_file=1
+				
+			for line3 in fr3:   		
+				if line in line3:
+					found_file=1
+			for line4 in fr4: 
+				if line in line4:
+					found_file=1
 
-						### remove duplicate on tier3
-						#os.system("xrd " + machine + " ls " + path + sample + "/" + " > " + sample + "/dupl" + sample +".txt")
-						#os.system("sed -r 's/^.{43}//' " + sample + "/dupl" + sample + ".txt > " + sample + "/duplclean.txt")
-						#os.system("cut -d/ -f 9 " + sample + "/duplclean.txt > " + sample + "/duplfullsample.txt")
+					if found_file==1:
 						ft3 = open(sample+'/fullsamplelist.txt' ,'r')
 						for t3line in ft3:
 							# copy to local dir
