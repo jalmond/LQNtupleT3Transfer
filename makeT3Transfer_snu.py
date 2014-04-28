@@ -24,7 +24,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 
 	if not (os.path.exists(fileA)):
 		 print "File " + fileA + " does not exist. Please copy to current directory"
-
+		 exit 
 	if "DoubleElectron" in endpath:
 		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/DoubleElectron/"
 	elif "DoubleMuon" in endpath:
@@ -216,7 +216,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 				for t3line in ft3:
 					# copy to local dir
 					if "rootTupleMaker_CRAB_DATA" in t3line:
-						if line in t3line:
+						if t3line in line:
 							clean = "xrd " + machine + " rm "
 							fullpatht3 = path  + "/" + t3line
 							print "File will be removed from tier3: "  + fullpatht3
