@@ -24,10 +24,10 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 
 	if not (os.path.exists(fileA)):
 		 print "File " + fileA + " does not exist. Please copy to current directory"
-		 exit 
+		 os.exit()
 	if "DoubleElectron" in endpath:
 		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/DoubleElectron/"
-	elif "DoubleMuon" in endpath:
+	elif "DoubleMu" in endpath:
 		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/DoubleMuon/"
 	elif "SingleElectron" in endpath:
 		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/SingleElectron/"
@@ -81,14 +81,16 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	if not (os.path.exists(endpath)):
 		os.exit();
 	if data == 1:
-		if not (os.path.exists(endpath+ "/periodA")):
-			os.system("mkdir " + endpath + "/periodA")
-		if not (os.path.exists(endpath+ "/periodB")):
-			os.system("mkdir " + endpath + "/periodB")
-		if not (os.path.exists(endpath+ "/periodC")):
-			os.system("mkdir " + endpath + "/periodC")
-		if not (os.path.exists(endpath+ "/periodD")):
-                       os.system("mkdir " + endpath + "/periodD")	
+		if not (os.path.exists(endpath1)):
+			os.system("mkdir " + endpath1)
+		if not (os.path.exists(endpath1+ "/periodA")):
+			os.system("mkdir " + endpath1 + "/periodA")
+		if not (os.path.exists(endpath1+ "/periodB")):
+			os.system("mkdir " + endpath1 + "/periodB")
+		if not (os.path.exists(endpath1+ "/periodC")):
+			os.system("mkdir " + endpath1 + "/periodC")
+		if not (os.path.exists(endpath1+ "/periodD")):
+                       os.system("mkdir " + endpath1 + "/periodD")	
 
 	if not (os.path.exists(sample)):
 		os.system("mkdir " + sample)
@@ -206,8 +208,8 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 					found_file=1
 
 			if found_file==1:
-				print "mv " + line + " " + endpath2
-				os.system("mv " + line + " " + endpath2)
+				print "mv " + line.strip() + " " + endpath2
+				os.system("mv " + line.strip() + " " + endpath2)
 		       	if found_file==0:
 				print "File NOT found"
 				print "Will remove: " + line 
