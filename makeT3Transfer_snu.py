@@ -189,15 +189,19 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 			found_file=0
 			for lineA in frA:
 				if line in lineA:
+					endpath1 = endpath1 + "periodA/"
 					found_file=1
        			for lineB in frB:  
 				if line in lineB:
+					endpath1 = endpath1 + "periodB/"
 					found_file=1		      	
 			for lineC in frC:   		
 				if line in lineC:
+					endpath1 = endpath1 + "periodC/"
 					found_file=1
 			for lineD in frD: 
 				if line in lineD:
+					endpath1 = endpath1 + "periodD/"
 					found_file=1
 
 			if found_file==1:
