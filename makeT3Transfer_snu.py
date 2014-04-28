@@ -15,11 +15,24 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	if "MuEG" in sample:
 		data_stream="ElectronMuon"
 
-	file1=data_stream+"periodA.txt"
-	file2=data_stream+"periodB.txt"
-	file3=data_stream+"periodC.txt"
-	file4=data_stream+"periodD.txt"
+	fileA=data_stream+"periodA.txt"
+	fileB=data_stream+"periodB.txt"
+	fileC=data_stream+"periodC.txt"
+	fileD=data_stream+"periodD.txt"
+	endpath1=""
 	
+	if "DoubleElectron" in endpath:
+		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/DoubleElectron/"
+	elif "DoubleMuon" in endpath:
+		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/DoubleMuon/"
+	elif "SingleElectron" in endpath:
+		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/SingleElectron/"
+	elif "SingleMuon" in endpath:
+		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/SingleMuon/"
+	elif "ElectronMuon" in endpath:
+		endpath1 = "/data1/DATA/LQNtuples_5_3_14_snu27/Data/ElectronMuon/"
+	
+
 	if "data" in pub_name:
 		data=1
 			
@@ -63,6 +76,15 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 		os.system("mkdir " + endpath)
 	if not (os.path.exists(endpath)):
 		os.exit();
+	if data == 1:
+		if not (os.path.exists(endpath+ "periodA")):
+			os.system("mkdir " + endpath + "periodA")
+		if not (os.path.exists(endpath+ "periodB")):
+			os.system("mkdir " + endpath + "periodB")
+		if not (os.path.exists(endpath+ "periodC")):
+			os.system("mkdir " + endpath + "periodC")
+		if not (os.path.exists(endpath+ "periodD")):
+                       os.system("mkdir " + endpath + "periodD")	
 
 	if not (os.path.exists(sample)):
 		os.system("mkdir " + sample)
@@ -157,36 +179,42 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 		fr = open(sample + '/duplcheck.txt','r')
 		for line in fr:
 			print "Job " + str(i)  + ": --> " +  line
-			fr1 = open(file1,'r')
-			fr2 = open(file2,'r')
-			fr3 = open(file3,'r')
-			fr4 = open(file4,'r')
+			frA = open(fileA,'r')
+			frB = open(fileB,'r')
+			frC = open(fileC,'r')
+			frD = open(fileD,'r')
 			found_file=0
-			for line1 in fr1:
-				if line in line1:
+			for lineA in frA:
+				if line in lineA:
 					found_file=1
-       			for line2 in fr2:  
-				if line in line2:
+       			for lineB in frB:  
+				if line in lineB:
+					found_file=1		      	
+			for lineC in frC:   		
+				if line in lineC:
 					found_file=1
-				
-			for line3 in fr3:   		
-				if line in line3:
-					found_file=1
-			for line4 in fr4: 
-				if line in line4:
+			for lineD in frD: 
+				if line in lineD:
 					found_file=1
 
-					if found_file==1:
-						ft3 = open(sample+'/fullsamplelist.txt' ,'r')
-						for t3line in ft3:
-							# copy to local dir
-							if "rootTupleMaker_CRAB_DATA" in t3line:
-								if line in t3line:
-									clean = "xrd " + machine + " rm "
-									fullpatht3 = path  + "/" + t3line
-									os.system(clean+fullpatht3)
-									print "Removing file " + fullpatht3 + " from tier3" 
-						
+			if found_file==1:
+				print "mv " + line + " " + endpath1)
+				os.system("mv " + line + " " + endpath1)
+			 if found_file==0:
+				 print "File NOT found"
+				 print "Will remove: " + line 
+                                 os.system("rm " + line)
+				 ft3 = open(sample+'/fullsamplelist.txt' ,'r')	
+				 for t3line in ft3:
+					 # copy to local dir
+					 if "rootTupleMaker_CRAB_DATA" in t3line:
+						 if line in t3line:
+							 clean = "xrd " + machine + " rm "
+							 fullpatht3 = path  + "/" + t3line
+							 print "File will be removed from tier3: "  + fullpatht3
+							 os.system(clean+fullpatht3)
+							 print "Removing file " + fullpatht3 + " from tier3" 
+							
 	        if dupl == 0:
 			print "No duplicated jobs in directory"
 
