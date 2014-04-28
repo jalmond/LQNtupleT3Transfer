@@ -181,26 +181,26 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 		dupl =0
 		fr = open(sample + '/duplcheck.txt','r')
 		for line in fr:
-			print "Job " + str(i)  + ": --> " +  line
+			print "line = " + line
 			frA = open(fileA,'r')
 			frB = open(fileB,'r')
 			frC = open(fileC,'r')
 			frD = open(fileD,'r')
 			found_file=0
 			for lineA in frA:
-				if line in lineA:
+				if lineA in line:
 					endpath1 = endpath1 + "periodA/"
 					found_file=1
        			for lineB in frB:  
-				if line in lineB:
+				if lineB in line:
 					endpath1 = endpath1 + "periodB/"
 					found_file=1		      	
 			for lineC in frC:   		
-				if line in lineC:
+				if lineC in line:
 					endpath1 = endpath1 + "periodC/"
 					found_file=1
 			for lineD in frD: 
-				if line in lineD:
+				if lineD in line:
 					endpath1 = endpath1 + "periodD/"
 					found_file=1
 
