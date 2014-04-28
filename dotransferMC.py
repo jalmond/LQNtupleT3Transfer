@@ -16,7 +16,7 @@ for s in samples:
 
     endpath = path + s
     makeTransferFile_snu("cms2",s, endpath, user, "LQNtupleSNU")
-    #os.system("rm -r "+ s)
+    os.system("rm -r "+ s)
     
 
 

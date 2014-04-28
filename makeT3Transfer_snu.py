@@ -27,6 +27,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	path= "/cms/store/user/" +  username +"/" + sample + "/" + pub_name +"/" + str(ranpath) + "/"
 	dir=sample + "/"
 	toremove = path
+	
 	print ""
 	print "###############################################################################"
 	print "###"
@@ -128,6 +129,7 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 
 		print "Checking for duplicated Job ID :" + tocheck + "[jobid]" + "_##.root"
 
+		
 		count = number_of_files
 		dupl =0
 		for i in range(1, count):
