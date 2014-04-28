@@ -207,20 +207,20 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 			if found_file==1:
 				print "mv " + line + " " + endpath1
 				os.system("mv " + line + " " + endpath1)
-			 if found_file==0:
-				 print "File NOT found"
-				 print "Will remove: " + line 
-                                 os.system("rm " + line)
-				 ft3 = open(sample+'/fullsamplelist.txt' ,'r')	
-				 for t3line in ft3:
-					 # copy to local dir
-					 if "rootTupleMaker_CRAB_DATA" in t3line:
-						 if line in t3line:
-							 clean = "xrd " + machine + " rm "
-							 fullpatht3 = path  + "/" + t3line
-							 print "File will be removed from tier3: "  + fullpatht3
-							 os.system(clean+fullpatht3)
-							 print "Removing file " + fullpatht3 + " from tier3" 
+		       	if found_file==0:
+				print "File NOT found"
+				print "Will remove: " + line 
+				os.system("rm " + line)
+				ft3 = open(sample+'/fullsamplelist.txt' ,'r')	
+				for t3line in ft3:
+					# copy to local dir
+					if "rootTupleMaker_CRAB_DATA" in t3line:
+						if line in t3line:
+							clean = "xrd " + machine + " rm "
+							fullpatht3 = path  + "/" + t3line
+							print "File will be removed from tier3: "  + fullpatht3
+							os.system(clean+fullpatht3)
+							print "Removing file " + fullpatht3 + " from tier3" 
 							
 	        if dupl == 0:
 			print "No duplicated jobs in directory"
