@@ -1,6 +1,8 @@
 from makeT3Transfer_snu import *
 import os
 
+os.system("eval `ssh-agent`")
+os.system("ssh-add")
 os.system("voms-proxy-init  cms")
 
 ######  DO NOT CHANGE

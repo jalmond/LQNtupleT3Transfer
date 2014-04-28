@@ -2,15 +2,27 @@ def makeTransferFile_snu(snumachine, sample, endpath, username, pub_name):
 	import os
 	ranpath=""
 	data=0
-	file1="DoubleElectronperiodA.txt"
-	file2="DoubleElectronperiodB.txt"
-	file3="DoubleElectronperiodC.txt"
-	file4="DoubleElectronperiodD.txt"
+	
+	data_stream=""
+	if "DoubleElectron" in sample:
+		data_stream="DoubleElectron"
+	if "DoubleMu" in sample:
+		data_stream="DoubleMuon"
+	if "SingleMu" in sample:
+		data_stream="SingleMu"
+ 	if "SingleElectron" in sample:
+		data_stream="SingleElectron"
+	if "MuEG" in sample:
+		data_stream="ElectronMuon"
+
+	file1=data_stream+"periodA.txt"
+	file2=data_stream+"periodB.txt"
+	file3=data_stream+"periodC.txt"
+	file4=data_stream+"periodD.txt"
 	
 	if "data" in pub_name:
 		data=1
-		
-		
+			
 
         #### not to change
 	machine="uosaf0007.sscc.uos.ac.kr"
