@@ -248,9 +248,7 @@ def DeleteCorruptFiles(path):
 def CheckSetup(username_k, snu_ip):
 
 	import os
-	root_v=os.getenv("ROOTSYS")
-	cmssw_v=os.getenv("CMSSW_VERSION")
-	if root_v == "":
+	if not 'ROOTSYS' in locals():
 		print "Setup CMSSW or root and rerun"
 		quit()
 
