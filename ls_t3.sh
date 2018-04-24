@@ -1,1 +1,0 @@
-xrd uosaf0007.sscc.uos.ac.kr ls /cms/store/user/$1/Tag18p1/$2
