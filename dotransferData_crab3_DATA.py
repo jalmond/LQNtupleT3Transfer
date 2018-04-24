@@ -10,17 +10,18 @@ snu_ip="147.47.242.42"
 CheckSetup(user_name,snu_ip)
 
 ######  DO NOT CHANGE without dsicussing with all, as this is path for samples 
-path = "/data8/DATA/SKFlat/v9-4-4/MC/"
+path = "/data8/DATA/SKFlat/v9-4-4/DATA/"
 SKtag="SKFlat_v944_2"
 
 #####  USER MUST CHANGE, this is list for jobs 
-file_user = "suoh"
-## in samples second argument is the time tag of directory, if empty newest directory is used
-samples  = [["TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/",""]]
-
 file_user = "jskim"
 ## in samples second argument is the time tag of directory, if empty newest directory is used                                                                                                                                           
-samples  = [["DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8",""]]
+samples  = [["DoubleMuon","180424_000041","periodB"],
+            ["DoubleMuon","180424_000131","periodC"],
+            ["DoubleMuon","180424_000221","periodD"],
+            ["DoubleMuon","180424_000310","periodE"],
+            ["DoubleMuon","180424_000358","periodF"]]
+
 
 ##### This is for general job configuration
 k_sleep=120 # number of seconds to wait before rerunning script to pick up new files finished 
@@ -43,11 +44,12 @@ while not len(complete_samples) == len(samples):
         if completed:
             continue
         s_tag=s_all[1]
+        period=s_all[2]
         if "/" in s:
             s=s.replace("/","")
     
         print "Sample : " + s + " tag= " + s_tag
-        endpath = path + s 
+        endpath = path + s +"/"+period
         status = -1
         while status == -1:
             status= makeTransferFile_snu("jalmond" ,snu_ip,s,s_tag, endpath, file_user ,SKtag)

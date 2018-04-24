@@ -132,13 +132,12 @@ def makeTransferFile_snu(snuuser,snumachine, sample,sample_tag, endpath, usernam
 	fr = open(sample + '/remove_already_copiedfiles.txt' ,'r')
 	for line in fr:
 		if not "Agent pid " in line:
-			print 'file ' + line.strip() + ' already copied, removing from list to be copied'  
+			#print 'file ' + line.strip() + ' already copied, removing from list to be copied'  
 		        # remove filename from copy.txt
 			FixList(line.strip(), sample)
 			
        	print "removed all files previously copied........"
 		
-
 	f = open(sample + '/copy.txt' ,'r')
 	
 	for line in f:
@@ -210,12 +209,19 @@ def rename(snumachine, sample, endpath):
 
 def FixList(remove_line,sample):
 	import os
+	
+	remove_line1=remove_line[:-10]+".root"
+	remove_line2=remove_line[len(remove_line)-9:-5]
+	remove_line2="/"+remove_line2+"/"
+
 	list_log = open(sample + "/copy.txt", "r")
         copy_log = open(sample + "/copy2.txt", "w")
 
         for line in  list_log:
-                if not remove_line in line:
-                        copy_log.write(line)
+		if remove_line1 in line and remove_line2 in line:
+			print "Removing " + line
+		else:
+			copy_log.write(line)
         copy_log.close()
 	list_log.close()
 	os.system("cp  " + sample + "/copy2.txt  " + sample + "/copy.txt")
