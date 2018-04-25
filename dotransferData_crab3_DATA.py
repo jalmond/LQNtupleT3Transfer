@@ -5,12 +5,12 @@ import os,time
 
 #check screen is running 
 print "Currently using screen ssh to allow access: " 
-user_name="jalmond"
+user_name="suoh"#for snu sever
 snu_ip="147.47.242.42"
 CheckSetup(user_name,snu_ip)
 
 ######  DO NOT CHANGE without dsicussing with all, as this is path for samples 
-path = "/data8/DATA/SKFlat/v9-4-4/DATA/"
+path = "/data8/DATA/SKFlat/v9-4-4/"
 SKtag="SKFlat_v944_3"
 
 
@@ -68,6 +68,8 @@ while not len(complete_samples) == len(samples):
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/DATA/"+ "'")
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/DATA/"+ s +"'")
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/DATA/"+ s + "/"+ period+"'")
+        os.system("ssh "+user_name+"@" + snu_ip + " 'chmod -R 777 " + path+"/"+SKtag + "'")
+
 
         endpath = path + "/"+SKtag +"/DATA/" + s +"/"+period
         status = -1

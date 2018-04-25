@@ -5,7 +5,7 @@ import os,time
 
 #check screen is running 
 print "Currently using screen ssh to allow access: " 
-user_name="jalmond"
+user_name="suoh"
 snu_ip="147.47.242.42"
 CheckSetup(user_name,snu_ip)
 
@@ -56,11 +56,12 @@ while not len(complete_samples) == len(samples):
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag + "'")
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/MC/"+ "'")
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/MC/"+ s+"'")
-
+        os.system("ssh "+user_name+"@" + snu_ip + " 'chmod -R 777 " + path+"/"+SKtag + "'")
+        
         endpath = path + "/"+SKtag +"/MC/" + s 
         status = -1
         while status == -1:
-            status= makeTransferFile_snu("jalmond" ,snu_ip,s,s_tag, endpath, file_user, SKtag)
+            status= makeTransferFile_snu(user_name ,snu_ip,s,s_tag, endpath, file_user, SKtag)
             #os.system("rm -r "+ s)
         if status == 10:
             print "#"*50
