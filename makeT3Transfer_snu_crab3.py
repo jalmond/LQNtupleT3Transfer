@@ -327,5 +327,13 @@ def GetFromGoogleDoc(tag,manualConfiguration, isData):
 				period = GetPeriod(row[0])
 				sample_conf.append([row[1],row[7],period,row[8]])
 
+
+	else:
+		for row in cr:
+			if row[2] == "MC":
+				sample_conf.append([row[3],row[7],"",row[8]])
+
+
 	return sample_conf
+
 	

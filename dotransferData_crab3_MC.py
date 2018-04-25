@@ -16,7 +16,7 @@ SKtag="SKFlat_v944_3"
 #####  USER MUST CHANGE, this is list for jobs 
 
 manualConfiguration=False ### set true if you dont want to copy all samples from googledoc                                                                                                                                                  
-samples = GetFromGoogleDoc(SKtag, manualConfiguration, True)
+samples = GetFromGoogleDoc(SKtag, manualConfiguration, False)
 
 if len(samples) == 0 :
     job_file_user = "jskim"
@@ -57,7 +57,7 @@ while not len(complete_samples) == len(samples):
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/MC/"+ "'")
         os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/MC/"+ s+"'")
 
-        endpath = path + +"/"+SKtag +"/MC/" + s 
+        endpath = path + "/"+SKtag +"/MC/" + s 
         status = -1
         while status == -1:
             status= makeTransferFile_snu("jalmond" ,snu_ip,s,s_tag, endpath, file_user, SKtag)
@@ -77,7 +77,7 @@ while not len(complete_samples) == len(samples):
             print "Job complete"
             print "#"*50
             complete_samples.append(s_orig)
-        #os.system("rm -r "+ s)
+        os.system("rm -r "+ s)
 
 
     n_runs=n_runs+1
