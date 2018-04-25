@@ -5,7 +5,8 @@ def makeTransferFile_snu(snuuser,snumachine, sample,sample_tag, endpath, usernam
 
 	ranpath=""
 	data=0
-	
+
+
         #### not to change
 	if not (os.path.exists(sample)):
 		os.system("mkdir " + sample)
@@ -163,13 +164,14 @@ def makeTransferFile_snu(snuuser,snumachine, sample,sample_tag, endpath, usernam
 					
 					
 
-	os.system("ssh " + snuuser + "@" + snumachine +  " 'root -l -q -b  "+ endpath + "' >   " + sample + "/corruptfiles.txt")
-	Failed_copy= DeleteCorruptFiles(sample + "/corruptfiles.txt")
-	
+        os.system("ssh " + snuuser + "@" + snumachine +  " 'root -l -q -b  "+ endpath + "/*' &>   " + sample + "/corruptfiles.txt")
+        os.system("ssh " + snuuser + "@" + snumachine +  " 'root -l -q -b  "+ endpath + "/*'")
+	Failed_copy= DeleteCorruptFiles(sample + "/corruptfiles.txt",snuuser,snumachine)
 
 	print "List of files successfully copied to SNU are: "   
 	os.system("ssh "+snuuser+"@" + snumachine + " 'cd "+ endpath  +"; ls  ./' > " + sample + "/files_at_snuend.txt")
-	
+	print "ssh "+snuuser+"@" + snumachine + " 'cd "+ endpath  +"; ls  ./'"
+
 	# status 1 means all finished and copied
 	job_status=1
 
@@ -228,7 +230,7 @@ def FixList(remove_line,sample):
 	os.system("rm " + sample + "/copy2.txt")
 
 
-def DeleteCorruptFiles(path):
+def DeleteCorruptFiles(path, snuuser,snumachine):
 	import os
 	list_corrupt = open(path  ,"r")
 	nfiles_corr=0
