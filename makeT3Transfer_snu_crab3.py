@@ -206,7 +206,7 @@ def rename(snumachine, sample, endpath):
 	import os
 	rename=True
 	if rename:
-		os.system("ssh jalmond@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./' > " + sample + "/copiedfiles.txt")
+		os.system("ssh " + snuuser + "@" + snumachine + ".snu.ac.kr 'cd "+ endpath  +"; ls  ./' > " + sample + "/copiedfiles.txt")
 		fr = open(sample + '/copiedfiles.txt' ,'r')
 		for line in fr:
 			newline=line.replace("rootTupleMaker_CRAB_MC_2012_Top","rootTupleMaker_CRAB_MC_2012_" + sample)
