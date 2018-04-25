@@ -2,20 +2,27 @@
 
 Runs in kisti. Before running setup root, either with CMSSW or root setup shell
 
-After cloning branch run modify dotransferData_crab3_MC.py for your job and run:
-python dotransferData_crab3_MC.py
+After cloning branch run modify dotransferData_crab3_MC.py for your job by changing
+Change user_name="XX" in dotransferData_crab3_DATA.py or dotransferData_crab3_MC.py
 
-The file copies from directries like: 
+Can run samlpes from googledoc:
+https://docs.google.com/spreadsheets/d/1TedFWvlM3XW1184wwuqgzXKX7OCO1Nneo2eHT0amsvk/edit#gid=0
 
-/xrootd/store/user/suoh/SKFlat/TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/SKFlatMaker_2017_v1/180419_074221/000X/SKFlatNtuple_X.root
+Or manual (change manualConfiguration=False -> manualConfiguration=True)
 
-One file dotransferData_crab3_MC.py is used for each user, so if you copy files from suoh the lines in dotransferData_crab3_MC are:
 
-file_user = "suoh"
-samples  = [["TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/","180419_074221"]]
+For new versions of SKFLat tags: 
 
-This sample will copy TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8 with job stamp 180419_074221. It will copy all /0000/-/00XX/ directores
+In makeT3Transfer_snu_crab3.py update GetFromGoogleDoc function to include new url, which is for tab in googkedoc:
 
-If no job stamp is given then the newest file is used
+For example: 
+if tag == "SKFlat_v944_3":
+     url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgwHJjUyFC1Ck2ewgajQhf14as-tKZEQsofwh0UlJo3fPlXSh8S85sHnDtsWgwu5qTkqwyAKb8wjJu/pub?gid=0&single=true&output=csv'
+
+in dotransferData_crab3_XXX.py: 
+
+update SKtag="SKFlat_v944_3"
+and if needed:
+path = "/data8/DATA/SKFlat/v9-4-4/DATA/"
 
 
