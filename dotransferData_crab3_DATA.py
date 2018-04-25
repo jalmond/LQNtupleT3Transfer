@@ -11,17 +11,27 @@ CheckSetup(user_name,snu_ip)
 
 ######  DO NOT CHANGE without dsicussing with all, as this is path for samples 
 path = "/data8/DATA/SKFlat/v9-4-4/DATA/"
-SKtag="SKFlat_v944_2"
+SKtag="SKFlat_v944_3"
+
 
 #####  USER MUST CHANGE, this is list for jobs 
-file_user = "jskim"
-## in samples second argument is the time tag of directory, if empty newest directory is used                                                                                                                                           
-samples  = [["DoubleMuon","180424_000041","periodB"],
-            ["DoubleMuon","180424_000131","periodC"],
-            ["DoubleMuon","180424_000221","periodD"],
-            ["DoubleMuon","180424_000310","periodE"],
-            ["DoubleMuon","180424_000358","periodF"]]
 
+
+
+## in samples second argument is the time tag of directory, if empty newest directory is used                                                                                                                                           
+
+manualConfiguration=False ### set true if you dont want to copy all samples from googledoc
+samples = GetFromGoogleDoc(SKtag, manualConfiguration, True)
+
+
+if len(samples) == 0 :
+    job_file_user = "jskim"
+    samples  =  [["DoubleMuon","180424_000041","periodB",job_file_user],
+                 ["DoubleMuon","180424_000131","periodC",job_file_user],
+                 ["DoubleMuon","180424_000221","periodD",job_file_user],
+                 ["DoubleMuon","180424_000310","periodE",job_file_user],
+                 ["DoubleMuon","180424_000358","periodF",job_file_user]]
+    
 
 ##### This is for general job configuration
 k_sleep=120 # number of seconds to wait before rerunning script to pick up new files finished 
@@ -32,6 +42,10 @@ complete_samples=[]
 n_runs=0
 while not len(complete_samples) == len(samples):
     print "Iteration ("+str(n_runs)+"):"
+    if n_runs >20:
+        print "Ran script for 20 iterations, will exit for now."
+        quit()
+
     if n_runs > 0:
         time.sleep(k_sleep)
     for s_all in samples:    
@@ -45,14 +59,20 @@ while not len(complete_samples) == len(samples):
             continue
         s_tag=s_all[1]
         period=s_all[2]
+        file_user=s_all[3]
         if "/" in s:
             s=s.replace("/","")
     
         print "Sample : " + s + " tag= " + s_tag
-        endpath = path + s +"/"+period
+        os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag + "'")
+        os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/DATA/"+ "'")
+        os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/DATA/"+ s +"'")
+        os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/DATA/"+ s + "/"+ period+"'")
+
+        endpath = path + "/"+SKtag +"/DATA/" + s +"/"+period
         status = -1
         while status == -1:
-            status= makeTransferFile_snu("jalmond" ,snu_ip,s,s_tag, endpath, file_user ,SKtag)
+            status= makeTransferFile_snu(user_name,snu_ip,s,s_tag, endpath, file_user,SKtag+"_"+period)
             os.system("rm -r "+ s)
         if status == 10:
             print "#"*50
@@ -69,7 +89,7 @@ while not len(complete_samples) == len(samples):
             print "Job complete"
             print "#"*50
             complete_samples.append(s_orig)
-        #os.system("rm -r "+ s)
+        os.system("rm -r "+ s)
 
 
     n_runs=n_runs+1

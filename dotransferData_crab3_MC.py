@@ -10,17 +10,18 @@ snu_ip="147.47.242.42"
 CheckSetup(user_name,snu_ip)
 
 ######  DO NOT CHANGE without dsicussing with all, as this is path for samples 
-path = "/data8/DATA/SKFlat/v9-4-4/MC/"
-SKtag="SKFlat_v944_2"
+path = "/data8/DATA/SKFlat/v9-4-4/"
+SKtag="SKFlat_v944_3"
 
 #####  USER MUST CHANGE, this is list for jobs 
-file_user = "suoh"
-## in samples second argument is the time tag of directory, if empty newest directory is used
-samples  = [["TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/",""]]
 
-file_user = "jskim"
-## in samples second argument is the time tag of directory, if empty newest directory is used                                                                                                                                           
-samples  = [["DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8",""]]
+manualConfiguration=False ### set true if you dont want to copy all samples from googledoc                                                                                                                                                  
+samples = GetFromGoogleDoc(SKtag, manualConfiguration, True)
+
+if len(samples) == 0 :
+    job_file_user = "jskim"
+    samples  =  [["DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8","","",job_file_user]]
+
 
 ##### This is for general job configuration
 k_sleep=120 # number of seconds to wait before rerunning script to pick up new files finished 
@@ -31,6 +32,9 @@ complete_samples=[]
 n_runs=0
 while not len(complete_samples) == len(samples):
     print "Iteration ("+str(n_runs)+"):"
+    if n_runs > 20:
+        print "Ran script for 20 iterations, will exit for now."
+        quit()
     if n_runs > 0:
         time.sleep(k_sleep)
     for s_all in samples:    
@@ -43,15 +47,21 @@ while not len(complete_samples) == len(samples):
         if completed:
             continue
         s_tag=s_all[1]
+        file_user=s_all[3]
         if "/" in s:
             s=s.replace("/","")
     
         print "Sample : " + s + " tag= " + s_tag
-        endpath = path + s 
+
+        os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag + "'")
+        os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/MC/"+ "'")
+        os.system("ssh "+user_name+"@" + snu_ip + " 'mkdir " + path+"/"+SKtag +"/MC/"+ s+"'")
+
+        endpath = path + +"/"+SKtag +"/MC/" + s 
         status = -1
         while status == -1:
-            status= makeTransferFile_snu("jalmond" ,snu_ip,s,s_tag, endpath, file_user ,SKtag)
-            os.system("rm -r "+ s)
+            status= makeTransferFile_snu("jalmond" ,snu_ip,s,s_tag, endpath, file_user, SKtag)
+            #os.system("rm -r "+ s)
         if status == 10:
             print "#"*50
             print "All files transferred that can be, but some are still running on grid"

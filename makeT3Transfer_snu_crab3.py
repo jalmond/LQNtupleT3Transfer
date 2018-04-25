@@ -6,6 +6,10 @@ def makeTransferFile_snu(snuuser,snumachine, sample,sample_tag, endpath, usernam
 	ranpath=""
 	data=0
 
+	if not os.path.exists("/xrootd/store/user/"+username+"/SKFlat/" + sample + "/" + pub_name +"/"):
+		print "Current job : " + sample  + " --> " + "/xrootd/store/user/"+username+"/SKFlat/" + sample + "/" + pub_name +"/ does not exist yet. Skipping...."
+		return 0
+					 
 
         #### not to change
 	if not (os.path.exists(sample)):
@@ -31,7 +35,10 @@ def makeTransferFile_snu(snuuser,snumachine, sample,sample_tag, endpath, usernam
 
 	if not sample_tag == "":
 		ranpath= sample_tag
-		print "Setting path by hand"
+		print "Setting path by hand or from googledoc"
+	else:
+		print "Crab task ID is not assigned. Will take last directory in list."
+
 
 	dir=sample + "/"
 	path= "/xrootd/store/user/" +  username +"/SKFlat/" + sample + "/" + pub_name +"/" + str(ranpath) + "0000/" 
@@ -124,8 +131,7 @@ def makeTransferFile_snu(snuuser,snumachine, sample,sample_tag, endpath, usernam
 	
         ## check if rootfiles already exist in output location
 	print "ssh "+snuuser+"@" + snumachine + " 'cd "+ endpath  +"; ls  ./' > " + sample + "/remove_already_copiedfiles.txt"
-
-        os.system("ssh "+snuuser+"@" + snumachine + " 'mkdir " + endpath + "'")
+	
 	os.system("ssh "+snuuser+"@" + snumachine + " 'cd "+ endpath  +"; ls  ./' > " + sample + "/remove_already_copiedfiles.txt")
 	os.system("sed -i '/^$/d' " + sample + "/remove_already_copiedfiles.txt")
 
@@ -278,3 +284,48 @@ def CheckSetup(username_k, snu_ip):
 	if connected_cms3 == False:
 		print "No connection to cms3: please make connection in screen and run script again"
 		quit()
+
+def GetPeriod(JobName):
+	if "Run2017B" in JobName:
+		return "periodB"
+	if "Run2017C" in JobName:
+		return "periodC"
+	if "Run2017D" in JobName:
+		return "periodD"
+	if "Run2017E" in JobName:
+		return "periodE"
+	if "Run2017F" in JobName:
+		return "periodF"
+	else:
+		print "Invalid period in googledoc or script needs updatying"
+		quit()
+	
+def GetFromGoogleDoc(tag,manualConfiguration, isData):
+
+	print "Setting up job using spreadsheet for " + tag
+	print "Running Data"
+	sample_conf=[]
+	if manualConfiguration:
+		return sample_conf
+
+	url= ""
+	if tag == "SKFlat_v944_3":
+		url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgwHJjUyFC1Ck2ewgajQhf14as-tKZEQsofwh0UlJo3fPlXSh8S85sHnDtsWgwu5qTkqwyAKb8wjJu/pub?gid=0&single=true&output=csv'
+	else:
+		return  sample_conf
+	
+	
+	print "Reading from " + url
+	import csv
+	from urllib import urlopen
+	
+	cr = csv.reader(urlopen(url).readlines())
+
+	if isData:
+		for row in cr:
+			if row[2] == "Data":
+				period = GetPeriod(row[0])
+				sample_conf.append([row[1],row[7],period,row[8]])
+
+	return sample_conf
+	
